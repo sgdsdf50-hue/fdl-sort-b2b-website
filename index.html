@@ -81,10 +81,11 @@
     .hero .lead {font-size:19px; max-width:650px; margin:24px 0 28px; color:#42564b}
     .hero-actions {display:flex; gap:12px; flex-wrap:wrap; margin-bottom:30px}
     .metric-strip {display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:680px}
-    .metric {background:#fff; border:1px solid var(--line); padding:20px; border-radius:22px; box-shadow:0 12px 30px rgba(8,28,16,.05); text-align:left}
-    .metric-icon {width:32px; height:32px; color:var(--green-2); margin-bottom:12px; display:block}
-    .metric strong {display:block; font-size:15px; letter-spacing:-.02em; color:#07130d; margin-bottom:6px}
-    .metric small {color:var(--muted); font-weight:500; font-size:11.5px; line-height:1.5; display:block}
+    .metric {background:#fff; border:1px solid var(--line); padding:24px 16px; border-radius:22px; box-shadow:0 12px 30px rgba(8,28,16,.05); text-align:center; transition:transform .2s, box-shadow .2s}
+    .metric:hover {transform:translateY(-4px); box-shadow:0 16px 36px rgba(8,28,16,.1)}
+    .metric-icon {width:32px; height:32px; color:var(--green-2); margin:0 auto 12px; display:block}
+    .metric strong {display:block; font-size:16px; letter-spacing:-.02em; color:#07130d; margin-bottom:8px; font-weight:800}
+    .metric small {color:var(--muted); font-weight:500; font-size:12px; line-height:1.6; display:block}
     .hero-visual {position:relative}
     .hero-card {border-radius:34px; overflow:hidden; position:relative; min-height:560px; box-shadow:var(--shadow); background:#dfe9de}
     .hero-card img {width:100%; height:100%; min-height:560px; object-fit:cover}
@@ -264,17 +265,17 @@
           </div>
           <div class="metric-strip">
             <div class="metric">
-              <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5c0-1.1.9-2 2-2h2M17 3h2c1.1 0 2 .9 2 2v2M21 17v2c0 1.1-.9 2-2 2h-2M7 21H5c-1.1 0-2-.9-2-2v-2"></path><path d="M15 9H9l-1 2H6c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1h-2l-1-2z"></path><circle cx="12" cy="14" r="2.5"></circle></svg>
               <strong data-i18n="metric_sensor_title">Multimodal AI Recognition</strong>
               <small data-i18n="metric_sensor">Combined RGB, NIR, and hyperspectral fusion recognition to precisely identify color, material, texture, and foreign objects.</small>
             </div>
             <div class="metric">
-              <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"></circle><circle cx="5" cy="12" r="2.5"></circle><circle cx="19" cy="12" r="2.5"></circle><circle cx="12" cy="19" r="2.5"></circle><line x1="12" y1="7.5" x2="12" y2="16.5"></line><line x1="7.2" y1="10.5" x2="16.8" y2="13.5"></line><line x1="7.2" y1="13.5" x2="16.8" y2="10.5"></line></svg>
+              <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c-1.66 0-3 1.34-3 3 0 .74.28 1.41.73 1.93-.32.31-.73.68-.73 1.07 0 .55.45 1 1 1h2V5z"></path><path d="M12 5c1.66 0 3 1.34 3 3 0 .74-.28 1.41-.73 1.93.32.31.73.68.73 1.07 0 .55-.45 1-1 1h-2V5z"></path><path d="M12 11v6a2 2 0 0 1-2 2h-1M12 13v3a2 2 0 0 0 2 2h1M9.5 2c-3 0-5.5 2.5-5.5 5.5s2.5 5.5 5.5 5.5"></path><path d="M14.5 2c3 0 5.5 2.5 5.5 5.5s-2.5 5.5-5.5 5.5"></path></svg>
               <strong data-i18n="metric_operation_title">Vision Algorithm Matrix</strong>
               <small data-i18n="metric_operation">Synergy of object detection, image segmentation, and industry knowledge base for stable, high-precision sorting in complex scenarios.</small>
             </div>
             <div class="metric">
-              <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2M12.59 11.41A2 2 0 1 0 14 16H2M17.59 18.41A2 2 0 1 1 16 22H2"></path></svg>
+              <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 5.15a2.5 2.5 0 1 1-1.8 4.35H3M15.5 10.3a2.5 2.5 0 1 0 1.8 4.3H3M11.8 15.45a2.5 2.5 0 1 1-1.8 4.35H3"></path></svg>
               <strong data-i18n="metric_families_title">High-Speed Conveying & Ejection</strong>
               <small data-i18n="metric_families">High-speed conveying coupled with millisecond-response air valves for high throughput, rapid response, and precise sorting.</small>
             </div>
@@ -758,7 +759,7 @@
         metric_sensor: "RGB、近红外与高光谱融合识别，精准分辨颜色、材质、纹理与异物。",
         metric_operation_title: "视觉算法矩阵",
         metric_operation: "结合目标检测、图像分割与行业知识图谱，在复杂物料场景下实现稳定、高精度的精准分选。",
-        metric_families_title: "高速输送与精准喷吹",
+        metric_families_title: "高速算送吹选",
         metric_families: "超高速皮带输送搭配毫秒级响应智能喷吹气阀，满足大产能、高反应速度与超低带出比分选要求。",
         metric_global_title: "自主可控智能主控",
         metric_global: "支持深度学习模型在线训练、流量控制与具身智能联动，适配24/7连续作业及设备柔性扩展需求。",

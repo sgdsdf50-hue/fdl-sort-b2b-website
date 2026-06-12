@@ -513,18 +513,12 @@
           <h2 data-i18n="cta_title">Request a material test or line proposal.</h2>
           <p data-i18n="cta_intro">Tell us your target material, throughput, current line status and desired purity. Our engineering team will recommend the right AI optical sorting configuration.</p>
         </div>
-        <form class="form" onsubmit="event.preventDefault();">
-          <input placeholder="Company name" aria-label="Company name" data-i18n="form_company" />
-          <input placeholder="Email / WhatsApp" aria-label="Email or WhatsApp" data-i18n="form_contact" />
-          <select aria-label="Target market" data-i18n="form_select_market">
-            <option data-i18n="form_opt_market">Target market</option>
-            <option data-i18n="form_opt_sea">Southeast Asia</option>
-            <option data-i18n="form_opt_na">North America</option>
-            <option data-i18n="form_opt_eu">Europe</option>
-            <option data-i18n="form_opt_other">Other</option>
-          </select>
-          <textarea placeholder="Material stream, capacity, purity target..." data-i18n="form_message"></textarea>
-          <button class="btn primary" type="submit" data-i18n="form_submit">Submit inquiry →</button>
+        <form class="form">
+          <input type="text" id="formName" placeholder="Name or Company Name" aria-label="Name or Company Name" data-i18n="form_name" required />
+          <input type="email" id="formEmail" placeholder="Email Address" aria-label="Email Address" data-i18n="form_email" required />
+          <input type="text" id="formWhatsapp" placeholder="WhatsApp Number" aria-label="WhatsApp Number" data-i18n="form_whatsapp" required />
+          <textarea id="formMessage" placeholder="Material stream, capacity, purity target..." data-i18n="form_message"></textarea>
+          <button class="btn primary" type="submit" data-i18n="form_submit">Submit inquiry &rarr;</button>
         </form>
       </div>
     </section>
@@ -709,14 +703,9 @@
         cta_eyebrow: "Start your sorting project",
         cta_title: "Request a material test or line proposal.",
         cta_intro: "Tell us your target material, throughput, current line status and desired purity. Our engineering team will recommend the right AI optical sorting configuration.",
-        form_company: "Company name",
-        form_contact: "Email / WhatsApp",
-        form_select_market: "Target market",
-        form_opt_market: "Target market",
-        form_opt_sea: "Southeast Asia",
-        form_opt_na: "North America",
-        form_opt_eu: "Europe",
-        form_opt_other: "Other",
+        form_name: "Name or Company Name",
+        form_email: "Email Address",
+        form_whatsapp: "WhatsApp Number",
         form_message: "Material stream, capacity, purity target...",
         form_submit: "Submit inquiry &rarr;",
         footer_brand_desc: "AI optical sorting equipment for the circular economy — plastics, films, textiles and mixed recyclables.",
@@ -882,14 +871,9 @@
         cta_eyebrow: "开启您的智能分选项目",
         cta_title: "立即预约样品实测或定制整线规划方案。",
         cta_intro: "请写明您的回收目标材质、预期产能、当前厂区状况以及理想分选纯度指标。我们的工程专家团队将为您定制最契合的 AI 分选配置。",
-        form_company: "公司名称 / 企业全称",
-        form_contact: "电子邮箱 / 微信 / WhatsApp 咨询方式",
-        form_select_market: "目标应用回收区域",
-        form_opt_market: "目标应用回收区域",
-        form_opt_sea: "东南亚地区",
-        form_opt_na: "北美地区",
-        form_opt_eu: "欧洲地区",
-        form_opt_other: "其他国家/地区",
+        form_name: "公司名称 / 姓名",
+        form_email: "电子邮箱",
+        form_whatsapp: "WhatsApp 号码（支持国家区号）",
         form_message: "主要物料成分、每小时产能、出料纯度指标及厂区现状描述...",
         form_submit: "提交需求方案申请 &rarr;",
         footer_brand_desc: "专为绿色再生循环经济赋能的高端 AI 光选机、色选机——适配塑料瓶、薄膜、纺织物与混合垃圾资源化提纯。",
@@ -975,10 +959,86 @@
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           const currentLang = localStorage.getItem('fdl_lang') || 'en';
-          const alertMsg = currentLang === 'en'
-            ? 'Demo form only. Connect this form to your CRM or email service before launch.'
-            : '此表单为演示版本。请在发布前将此表单对接到您的客户关系管理系统（CRM）或邮件通知服务。';
-          alert(alertMsg);
+
+          const nameInput = document.getElementById('formName');
+          const emailInput = document.getElementById('formEmail');
+          const whatsappInput = document.getElementById('formWhatsapp');
+          const messageInput = document.getElementById('formMessage');
+
+          const nameVal = nameInput ? nameInput.value.trim() : '';
+          const emailVal = emailInput ? emailInput.value.trim() : '';
+          const whatsappVal = whatsappInput ? whatsappInput.value.trim() : '';
+          const messageVal = messageInput ? messageInput.value.trim() : '';
+
+          // Validate required fields
+          if (!nameVal || !emailVal || !whatsappVal) {
+            const fillMsg = currentLang === 'en'
+              ? 'Please fill in all required fields.'
+              : '请填写所有必填字段。';
+            alert(fillMsg);
+            return;
+          }
+
+          // Validate email address
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(emailVal)) {
+            const emailMsg = currentLang === 'en'
+              ? 'Please enter a valid email address.'
+              : '请输入有效的电子邮箱地址。';
+            alert(emailMsg);
+            return;
+          }
+
+          // Set submitting status
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'Submit inquiry &rarr;';
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = currentLang === 'en' ? 'Submitting...' : '提交中...';
+          }
+
+          // Submit form using AJAX (FormSubmit.co)
+          fetch('https://formsubmit.co/ajax/liujunpeng@hzgjgc.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              _subject: 'New Inquiry from FDL SORT Website',
+              'Name or Company Name': nameVal,
+              'Email Address': emailVal,
+              'WhatsApp Number': whatsappVal,
+              'Material stream / capacity / purity target': messageVal
+            })
+          })
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          })
+          .then(data => {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnHtml;
+            }
+            form.reset();
+            const successMsg = currentLang === 'en'
+              ? 'Thank you! Your inquiry has been submitted successfully.'
+              : '感谢您的咨询！您的需求已成功提交。\nThank you! Your inquiry has been submitted successfully.';
+            alert(successMsg);
+          })
+          .catch(error => {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnHtml;
+            }
+            const errorMsg = currentLang === 'en'
+              ? 'Submission failed. Please try again or contact us by email.'
+              : '提交失败。请重试或通过电子邮件联系我们。\nSubmission failed. Please try again or contact us by email.';
+            alert(errorMsg);
+          });
         });
       }
     });

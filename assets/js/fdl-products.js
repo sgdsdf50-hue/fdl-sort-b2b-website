@@ -41,3 +41,61 @@ document.addEventListener('click',function(e){
     applyLang(saved === 'en' ? 'en' : 'zh');
   });
 })();
+
+// Handle quote form submission
+document.addEventListener('submit', function(e) {
+  const quoteForm = e.target.closest('.quote-form');
+  if (quoteForm) {
+    e.preventDefault();
+    var currentLang = 'zh';
+    try { currentLang = localStorage.getItem('fdlLang') || 'zh'; } catch(err) {}
+
+    const nameVal = (quoteForm.querySelector('[name="name"]') || {}).value || '';
+    const emailVal = (quoteForm.querySelector('[name="email"]') || {}).value || '';
+    const whatsappVal = (quoteForm.querySelector('[name="whatsapp"]') || {}).value || '';
+    const messageVal = (quoteForm.querySelector('[name="message"]') || {}).value || '';
+
+    if (!nameVal.trim() || !emailVal.trim() || !whatsappVal.trim()) {
+      alert(currentLang === 'en' ? 'Please fill in all required fields.' : '请填写所有必填字段。');
+      return;
+    }
+
+    const submitBtn = quoteForm.querySelector('button[type="submit"]');
+    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'Submit';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = currentLang === 'en' ? 'Submitting...' : '提交中...';
+    }
+
+    fetch('https://formsubmit.co/ajax/liujunpeng@hzgjgc.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: 'New Inquiry from FDL SORT Product Page',
+        'Name or Company Name': nameVal,
+        'Email Address': emailVal,
+        'WhatsApp Number': whatsappVal,
+        'Material stream / capacity / purity target': messageVal
+      })
+    })
+    .then(response => response.ok ? response.json() : Promise.reject())
+    .then(() => {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+      }
+      quoteForm.reset();
+      alert(currentLang === 'en' ? 'Thank you! Your inquiry has been submitted successfully.' : '感谢您的咨询！您的需求已成功提交。');
+    })
+    .catch(() => {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+      }
+      alert(currentLang === 'en' ? 'Submission failed. Please try again or contact us by email.' : '提交失败。请重试或通过电子邮件联系我们。');
+    });
+  }
+});

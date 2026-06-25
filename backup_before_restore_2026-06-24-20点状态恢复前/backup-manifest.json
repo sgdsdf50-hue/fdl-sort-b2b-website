@@ -1,0 +1,13 @@
+{
+  "backup_name": "fdlsorterai-golden-backup-2026-06-25-1122",
+  "backup_time": "2026-06-25T11:22:00+08:00",
+  "github_repo": "https://github.com/sgdsdf50-hue/fdl-sort-b2b-website",
+  "github_branch": "main",
+  "github_commit_sha": "f746f77f9922eff767e782d07636726fe7a9d845",
+  "github_tag": "fdlsorterai-golden-backup-2026-06-25-1122",
+  "vercel_project": "fdl-sort-b2b-website",
+  "vercel_production_url": "https://www.fdlsorterai.com",
+  "namecheap_domain": "fdlsorterai.com",
+  "sitemap_url": "https://www.fdlsorterai.com/sitemap.xml",
+  "robots_url": "https://www.fdlsorterai.com/robots.txt"
+}

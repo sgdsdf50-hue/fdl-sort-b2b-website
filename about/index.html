@@ -33,26 +33,30 @@
     /* Custom inline enhancements for medals grid and video layout within products.css */
     .medal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
       margin-top: 40px;
     }
     .medal-card {
-      background: var(--bg-card, rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #ffffff;
+      border: 1px solid #e1e7e4;
       border-radius: 8px;
-      padding: 10px;
+      padding: 12px;
       text-align: center;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
     .medal-card:hover {
-      transform: translateY(-5px);
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
     }
     .medal-card img {
       width: 100%;
-      height: 260px;
-      object-fit: cover;
+      height: 150px;
+      object-fit: contain;
+      background: #f7fafc;
       border-radius: 4px;
+      padding: 5px;
     }
     .video-container {
       max-width: 900px;
@@ -293,10 +297,113 @@
 
         <div class="grid-4">
           <div class="card">
-            <div class="pill i18n" data-zh="联合国颁发" data-en="United Nations">联合国颁发</div>
-            <h3 class="i18n" data-zh="世界人居环境创新示范先进企业" data-en="World Habitat Environment Innovation Award">世界人居环境创新示范先进企业</h3>
-            <p class="i18n" data-zh="在绿色人居、固废资源化数智减碳领域做出的杰出贡献获得国际权威认可。" data-en="Outstanding global contribution recognized for smart waste reduction and digital circular economy.">在绿色人居、固废资源化数智减碳领域做出的杰出贡献获得国际权威认可。</p>
+            <div class="pill i18n" data-zh="中环协" data-en="CAUES">中环协</div>
+            <h3 class="i18n" data-zh="中环协执行副会长单位" data-en="Executive Vice President Unit of CAUES">中环协执行副会长单位</h3>
+            <p class="i18n" 
+               data-zh="代表了公司在环境卫生、分类收运及资源化利用行业内的领军地位与极高的行业公信力。" 
+               data-en="Standing as the Executive Vice President of the China Association of Urban Environmental Sanitation (CAUES), proving our absolute leadership in the environmental industry.">
+               代表了公司在环境卫生、分类收运及资源化利用行业内的领军地位与极高的行业公信力。
+            </p>
           </div>
+
+          <div class="card">
+            <div class="pill i18n" data-zh="国家工信部" data-en="Ministry of Industry (MIIT)">国家工信部</div>
+            <h3 class="i18n" data-zh="国家级专精特新“小巨人”企业" data-en="National 'Little Giant' Enterprise">国家级专精特新“小巨人”企业</h3>
+            <p class="i18n" data-zh="代表了国家在高端环保智能制造关键技术研发、高质量工程落地领域的极高评价。" data-en="A highly regarded national accolade signifying leadership in R&D and high-quality industrial manufacturing.">代表了国家在高端环保智能制造关键技术研发、高质量工程落地领域的极高评价。</p>
+          </div>
+
+          <div class="card">
+            <div class="pill i18n" data-zh="国家科技部" data-en="Ministry of Science (MOST)">国家科技部</div>
+            <h3 class="i18n" data-zh="国家级高新技术企业" data-en="National High-tech Enterprise">国家级高新技术企业</h3>
+            <p class="i18n" data-zh="多项视觉光选发明专利与算法在环保硬核科技方向 of 持续转化认证。" data-en="Awarded for continuous technological conversion of several visual sorting and algorithmic patents.">多项视觉光选发明专利与算法在环保硬核科技方向 of 持续转化认证。</p>
+          </div>
+
+          <div class="card">
+            <div class="pill i18n" data-zh="知识产权局" data-en="CNIPA">知识产权局</div>
+            <h3 class="i18n" data-zh="行业首个“中国专利优秀奖”" data-en="China Patent Excellence Award">行业首个“中国专利优秀奖”</h3>
+            <p class="i18n" data-zh="对公司在人工智能光选领域核心核心分拣技术原创发明专利的至高褒奖。" data-en="The first in the sorting industry to receive this national patent award, honoring core invention patents.">对公司在人工智能光选领域核心核心分拣技术原创发明专利的至高褒奖。</p>
+          </div>
+        </div>
+
+        <!-- Real Medal Pictures Showcase -->
+        <div class="medal-grid">
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-1.png" alt="FDL SORT Patent - 1">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-2.png" alt="FDL SORT Patent - 2">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-3.png" alt="FDL SORT Patent - 3">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-4.png" alt="FDL SORT Patent - 4">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-5.png" alt="FDL SORT Patent - 5">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-6.png" alt="FDL SORT Patent - 6">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-7.png" alt="FDL SORT Patent - 7">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-8.png" alt="FDL SORT Patent - 8">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-9.png" alt="FDL SORT Patent - 9">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-10.png" alt="FDL SORT Patent - 10">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-11.png" alt="FDL SORT Patent - 11">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-12.png" alt="FDL SORT Patent - 12">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-13.png" alt="FDL SORT Patent - 13">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-14.png" alt="FDL SORT Patent - 14">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-15.png" alt="FDL SORT Patent - 15">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-16.png" alt="FDL SORT Patent - 16">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-17.png" alt="FDL SORT Patent - 17">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-18.png" alt="FDL SORT Patent - 18">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+          <div class="medal-card">
+            <img src="../assets/img/about/medals/medal-19.png" alt="FDL SORT Patent - 19">
+            <p class="i18n" style="font-size:0.85em; margin-top:8px; opacity: 0.8;" data-zh="企业资质 / 荣誉" data-en="Patent & Honors">企业资质 / 荣誉</p>
+          </div>
+        </div>
 
           <div class="card">
             <div class="pill i18n" data-zh="国家工信部" data-en="Ministry of Industry (MIIT)">国家工信部</div>

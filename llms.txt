@@ -1,0 +1,16 @@
+# FDL SORT - AI Optical Sorting Systems
+
+> High-end industrial B2B sorting equipment for circular economy.
+
+## Core Products
+- AI Optical Sorter: High-speed RGB sorting for PET/HDPE bottles.
+- NIR Material Sorter: Hyperspectral identification of PE/PP/PET materials.
+- Film AI Sorter: Flexible packaging and thin film recovery.
+- Textile AI Sorter: Automatic classification by fiber and color.
+- Robot Sorter: Parallel high-speed robotic picking.
+- Complete Sorting Line: Turnkey MSW and commercial waste lines.
+
+## Technical Advantages
+- RealSense Sort: Real-time multi-target detection.
+- PixelSense Seg: Pixel-level material segmentation.
+- UniLight: Uniform controlled imaging for high stability.

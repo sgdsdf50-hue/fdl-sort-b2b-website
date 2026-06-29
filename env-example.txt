@@ -1,0 +1,22 @@
+# FDL SORT 独立站环境变量配置示例 (Environment Variables Example)
+
+本文件仅作为独立站环境变量配置参考，包含 CAPI、Pixel 追踪以及 Vercel 静态服务器部署可能需要使用的参数。
+请在 Vercel 环境变量（Settings -> Environment Variables）或本地 `.env` 文件中配置这些键。
+
+---
+
+# 1. Meta Marketing & Tracking 
+# Meta Pixel 追踪 ID 
+META_PIXEL_ID=1020725550482510
+
+# Meta Conversions API (CAPI) 令牌 (AccessToken) 密钥名称
+# 注意：生产密钥绝不允许暴露或上传至公开代码仓库
+META_CAPI_TOKEN=
+
+# 2. Google Search Console & SEO 
+# Google Search Console 的 HTML 验证标签 Content 
+GOOGLE_SITE_VERIFICATION=7ldsWNdWUhBgt6dU9779TNIhGcU5QgaA81WRx2pdVxo
+
+# 3. Serverless API Routing (if applicable)
+# Vercel Api Proxy Access Token
+API_PROXY_SECRET=

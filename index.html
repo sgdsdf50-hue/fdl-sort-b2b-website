@@ -181,6 +181,16 @@
       display: none;
     }
 
+    /* 浏览器原生解决吸顶导航栏遮挡板块标题的问题 */
+    section[id] {
+      scroll-margin-top: 80px; /* 72px 导航栏高度 + 8px 间距 */
+    }
+    @media (max-width: 620px) {
+      section[id] {
+        scroll-margin-top: 72px; /* 64px 手机导航栏高度 + 8px 间距 */
+      }
+    }
+
     @media (max-width: 980px) {
       header {inset:10px 0 auto}
       .navlinks {display:none}
@@ -1116,55 +1126,24 @@
         });
       }
 
-      // Unified Smooth Scroll for Homepage Links with Sticky Header Offset
+      // 1. Mobile toggle trigger
       const menuToggle = document.getElementById('menuToggle');
       const mobilePanel = document.getElementById('mobilePanel');
-      
-      // 1. Mobile toggle trigger
       if (menuToggle && mobilePanel) {
         menuToggle.addEventListener('click', () => {
           mobilePanel.classList.toggle('active');
           menuToggle.textContent = mobilePanel.classList.contains('active') ? '✕' : '☰';
         });
-      }
-
-      // 2. Select all links that jump within the homepage
-      const allNavLinks = document.querySelectorAll('.navlinks a, #mobilePanel a, .nav-actions .btn, .hero-actions .btn');
-      allNavLinks.forEach(link => {
-        const href = link.getAttribute('href');
         
-        // 仅处理本页锚点链接（以 # 开头）
-        if (href && href.startsWith('#')) {
-          link.addEventListener('click', (e) => {
-            const targetElement = document.querySelector(href);
-            if (targetElement) {
-              e.preventDefault(); // 阻止浏览器硬跳转及遮挡冲突
-              
-              // 如果手机端面板开启，先收起面板并重置图标
-              if (mobilePanel && mobilePanel.classList.contains('active')) {
-                mobilePanel.classList.remove('active');
-                if (menuToggle) menuToggle.textContent = '☰';
-              }
-              
-              // 动态计算吸顶导航栏高度（电脑端 72px，手机端 64px）
-              const headerOffset = window.innerWidth <= 620 ? 64 : 72;
-              const elementPosition = targetElement.getBoundingClientRect().top;
-              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-              
-              // 执行 100% 浏览器兼容的平滑绝对滚动
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-              });
-              
-              // 静默更新浏览器地址栏 Hash 状态
-              try {
-                history.pushState(null, null, href);
-              } catch (err) {}
-            }
+        // 2. 仅在点击链接后顺畅收起手机端面板（放行所有默认跳转，让浏览器原生处理 smooth scroll 和跨页）
+        const mobileLinks = mobilePanel.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobilePanel.classList.remove('active');
+            menuToggle.textContent = '☰';
           });
-        }
-      });
+        });
+      }
     });
   </script>
 </body>

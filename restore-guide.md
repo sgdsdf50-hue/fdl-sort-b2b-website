@@ -98,7 +98,7 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
 2. 依次点击顶部的 **"Settings"** -> 左侧导航栏 **"Environment Variables"**。
 3. 依次添加以下三个变量（设置为 **Production**、**Preview** 两个环境生效）：
    - 键名：`META_PIXEL_ID`
-     值：`1032808262617579`
+     值：`1027355633035262`
    - 键名：`META_CAPI_TOKEN`
      值：`EAASZBCEBPClUBR05bUc7cwUYjnqgBwtLwo9p3R5ppU8dYvvZAuJptdxY2RxmdsZBNvp6w8RM5s5MPxqTTCCzv8lXlKrUCZCZAZCSYE4mqwl95aD9nTwtx2mBYYR9eeonZBjGiRdwGPkjZBZCGn0SZBE5V59jHxMJz3ZB8hdtQlz8nEtvNXPBqaSTL3ZAXygWdYcS6HAYBAZDZD`
    - 键名：`META_TEST_EVENT_CODE`（可选，测试完毕后请从后台将其删除，以使生产上报完美对齐）
@@ -116,7 +116,7 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
    
    # 注入 Pixel ID
    wrangler secret put META_PIXEL_ID
-   # 输入 1032808262617579 后回车
+   # 输入 1027355633035262 后回车
    ```
 2. 您也可以登录 [Cloudflare 控制台](https://dash.cloudflare.com/)，在 Workers & Pages 中选择您的服务，进入 **"Settings"** -> **"Variables"**，并在 **"Environment Variables"** 处以加密加密的形式添加对应的键值对。
 
@@ -125,7 +125,7 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
 - **Linux/Ubuntu/Docker 启动时导出**：
   在启动或守护进程脚本中进行导出注入：
   ```bash
-  export META_PIXEL_ID="1032808262617579"
+  export META_PIXEL_ID="1027355633035262"
   export META_CAPI_TOKEN="EAASZBCEBPClUBR05bUc..."
   export META_TEST_EVENT_CODE="TTEST89156"
   
@@ -140,7 +140,7 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
       "name"   : "fdl-sort-capi-proxy",
       "script" : "./server.js",
       "env": {
-        "META_PIXEL_ID": "1032808262617579",
+        "META_PIXEL_ID": "1027355633035262",
         "META_CAPI_TOKEN": "EAASZBCEBPClUBR05bUc...",
         "META_TEST_EVENT_CODE": "TTEST89156"
       }

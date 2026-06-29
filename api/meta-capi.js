@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
   }
 
   // 2. Resolve Environment Variables
-  const PIXEL_ID = process.env.META_PIXEL_ID || '1032808262617579';
+  const PIXEL_ID = process.env.META_PIXEL_ID || '1027355633035262';
   const CAPI_TOKEN = process.env.META_CAPI_TOKEN;
   const TEST_EVENT_CODE = process.env.META_TEST_EVENT_CODE;
 

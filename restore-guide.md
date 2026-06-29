@@ -100,7 +100,7 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
    - 键名：`META_PIXEL_ID`
      值：`1027355633035262`
    - 键名：`META_CAPI_TOKEN`
-     值：`EAASZBCEBPClUBR05bUc7cwUYjnqgBwtLwo9p3R5ppU8dYvvZAuJptdxY2RxmdsZBNvp6w8RM5s5MPxqTTCCzv8lXlKrUCZCZAZCSYE4mqwl95aD9nTwtx2mBYYR9eeonZBjGiRdwGPkjZBZCGn0SZBE5V59jHxMJz3ZB8hdtQlz8nEtvNXPBqaSTL3ZAXygWdYcS6HAYBAZDZD`
+     值：`EAASZBCEBPClUBR0Xr4kKyw5Fe38cllprRhiAnUV4cfPeC8cYVgtNUnSI8zm0NkwVbZAMxqPuYjmDVPMo3T1UcIZCHD1Cr2TW6nYFfWFWalhlclBpV9r08iTmc0U9JYpBay3343aSscecYRlJToaicfs5BXhEYE9tUWG0cClxwhWzYqLhfEjsm2zGZCSU0fToNwZDZD`
    - 键名：`META_TEST_EVENT_CODE`（可选，测试完毕后请从后台将其删除，以使生产上报完美对齐）
      值：`TTEST89156`
 4. 点击 **"Save"**。
@@ -126,7 +126,7 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
   在启动或守护进程脚本中进行导出注入：
   ```bash
   export META_PIXEL_ID="1027355633035262"
-  export META_CAPI_TOKEN="EAASZBCEBPClUBR05bUc..."
+  export META_CAPI_TOKEN="EAASZBCEBPClUBR0Xr4k..."
   export META_TEST_EVENT_CODE="TTEST89156"
   
   # 启动您的 Node.js 主服务
@@ -141,7 +141,7 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
       "script" : "./server.js",
       "env": {
         "META_PIXEL_ID": "1027355633035262",
-        "META_CAPI_TOKEN": "EAASZBCEBPClUBR05bUc...",
+        "META_CAPI_TOKEN": "EAASZBCEBPClUBR0Xr4k...",
         "META_TEST_EVENT_CODE": "TTEST89156"
       }
     }]

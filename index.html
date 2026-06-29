@@ -1112,40 +1112,55 @@
         });
       }
 
-      // Mobile Menu Toggle and Reliable Scroll Logic
+      // Unified Smooth Scroll for Homepage Links with Sticky Header Offset
       const menuToggle = document.getElementById('menuToggle');
       const mobilePanel = document.getElementById('mobilePanel');
+      
+      // 1. Mobile toggle trigger
       if (menuToggle && mobilePanel) {
         menuToggle.addEventListener('click', () => {
           mobilePanel.classList.toggle('active');
           menuToggle.textContent = mobilePanel.classList.contains('active') ? '✕' : '☰';
         });
+      }
+
+      // 2. Select all links that jump within the homepage
+      const allNavLinks = document.querySelectorAll('.navlinks a, #mobilePanel a, .nav-actions .btn, .hero-actions .btn');
+      allNavLinks.forEach(link => {
+        const href = link.getAttribute('href');
         
-        const mobileLinks = mobilePanel.querySelectorAll('a');
-        mobileLinks.forEach(link => {
+        // 仅处理本页锚点链接（以 # 开头）
+        if (href && href.startsWith('#')) {
           link.addEventListener('click', (e) => {
-            const targetId = link.getAttribute('href');
-            
-            // 如果是本页锚点（以 # 开头）
-            if (targetId.startsWith('#')) {
-              e.preventDefault(); // 拦截硬跳转冲突
+            const targetElement = document.querySelector(href);
+            if (targetElement) {
+              e.preventDefault(); // 阻止浏览器硬跳转及遮挡冲突
               
-              // 先优雅、无冲突地收起折叠面板
-              mobilePanel.classList.remove('active');
-              menuToggle.textContent = '☰';
+              // 如果手机端面板开启，先收起面板并重置图标
+              if (mobilePanel && mobilePanel.classList.contains('active')) {
+                mobilePanel.classList.remove('active');
+                if (menuToggle) menuToggle.textContent = '☰';
+              }
               
-              // 延时 100ms 避开布局抖动，通过原生修改 hash 触发 CSS 平滑滚动，100% 兼容 iOS Safari/Chrome
-              setTimeout(() => {
-                window.location.hash = targetId;
-              }, 100);
-            } else {
-              // 跨页链接直接放行
-              mobilePanel.classList.remove('active');
-              menuToggle.textContent = '☰';
+              // 动态计算吸顶导航栏高度（电脑端 72px，手机端 64px）
+              const headerOffset = window.innerWidth <= 620 ? 64 : 72;
+              const elementPosition = targetElement.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+              
+              // 执行 100% 浏览器兼容的平滑绝对滚动
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+              
+              // 静默更新浏览器地址栏 Hash 状态
+              try {
+                history.pushState(null, null, href);
+              } catch (err) {}
             }
           });
-        });
-      }
+        }
+      });
     });
   </script>
 </body>

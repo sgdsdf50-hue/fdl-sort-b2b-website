@@ -88,6 +88,33 @@ document.addEventListener('submit', function(e) {
         submitBtn.innerHTML = originalBtnHtml;
       }
       quoteForm.reset();
+
+      // Meta Lead Event Tracking (Pixel & CAPI Deduplication)
+      if (typeof fbq === 'function') {
+        const leadEventId = 'evt_lead_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        fbq('track', 'Lead', {}, { eventID: leadEventId });
+        
+        if (typeof hashMetaValue === 'function') {
+          Promise.all([
+            hashMetaValue(emailVal),
+            hashMetaValue(whatsappVal)
+          ]).then(([hashedEmail, hashedPhone]) => {
+            fetch('/api/meta-capi', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                eventName: 'Lead',
+                eventID: leadEventId,
+                user_data: {
+                  em: hashedEmail,
+                  ph: hashedPhone
+                }
+              })
+            }).catch(err => console.error('Meta CAPI Lead Error:', err));
+          });
+        }
+      }
+
       alert(currentLang === 'en' ? 'Thank you! Your inquiry has been submitted successfully.' : '感谢您的咨询！您的需求已成功提交。');
     })
     .catch(() => {

@@ -285,6 +285,51 @@
       .mobile-panel { top: 88px; }
     }
   </style>
+
+  <!-- Meta Pixel & CAPI Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    const META_PIXEL_ID = '1032808262617579';
+    fbq('init', META_PIXEL_ID);
+    
+    // 浏览器端和服务器端去重 EventID 生成器
+    function generateMetaEventId() {
+      return 'evt_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+    }
+    
+    // 1. 浏览器端 PageView 上报
+    const pageViewId = generateMetaEventId();
+    fbq('track', 'PageView', {}, { eventID: pageViewId });
+    
+    // 2. 服务端 CAPI PageView 上报代理
+    fetch('/api/meta-capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'PageView',
+        eventID: pageViewId
+      })
+    }).catch(err => console.error('Meta CAPI PageView Error:', err));
+    
+    // 浏览器端高安全 SHA-256 哈希辅助函数
+    function hashMetaValue(value) {
+      if (!value) return Promise.resolve(null);
+      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(value.trim().toLowerCase()))
+        .then(hashBuffer => {
+          const hashArray = Array.from(new Uint8Array(hashBuffer));
+          return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        });
+    }
+  </script>
+  <!-- End Meta Pixel Code -->
 </head>
 <body>
   <!-- Version: Pure-Stable-Build-03 -->
@@ -1108,6 +1153,31 @@
               submitBtn.innerHTML = originalBtnHtml;
             }
             form.reset();
+
+            // Meta Lead Event Tracking (Pixel & CAPI Deduplication)
+            const leadEventId = 'evt_lead_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+            fbq('track', 'Lead', {}, { eventID: leadEventId });
+            
+            if (window.crypto && crypto.subtle) {
+              Promise.all([
+                hashMetaValue(emailVal),
+                hashMetaValue(whatsappVal)
+              ]).then(([hashedEmail, hashedPhone]) => {
+                fetch('/api/meta-capi', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    eventName: 'Lead',
+                    eventID: leadEventId,
+                    user_data: {
+                      em: hashedEmail,
+                      ph: hashedPhone
+                    }
+                  })
+                }).catch(err => console.error('Meta CAPI Lead Error:', err));
+              });
+            }
+
             const successMsg = currentLang === 'en'
               ? 'Thank you! Your inquiry has been submitted successfully.'
               : '感谢您的咨询！您的需求已成功提交。\nThank you! Your inquiry has been submitted successfully.';

@@ -19,6 +19,51 @@
     "category": "Industrial Sorting Equipment"
   }
   </script>
+
+  <!-- Meta Pixel & CAPI Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    const META_PIXEL_ID = '1032808262617579';
+    fbq('init', META_PIXEL_ID);
+    
+    // 浏览器端和服务器端去重 EventID 生成器
+    function generateMetaEventId() {
+      return 'evt_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+    }
+    
+    // 1. 浏览器端 PageView 上报
+    const pageViewId = generateMetaEventId();
+    fbq('track', 'PageView', {}, { eventID: pageViewId });
+    
+    // 2. 服务端 CAPI PageView 上报代理
+    fetch('/api/meta-capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'PageView',
+        eventID: pageViewId
+      })
+    }).catch(err => console.error('Meta CAPI PageView Error:', err));
+    
+    // 浏览器端高安全 SHA-256 哈希辅助函数
+    function hashMetaValue(value) {
+      if (!value) return Promise.resolve(null);
+      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(value.trim().toLowerCase()))
+        .then(hashBuffer => {
+          const hashArray = Array.from(new Uint8Array(hashBuffer));
+          return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        });
+    }
+  </script>
+  <!-- End Meta Pixel Code -->
 </head>
 <body data-title-zh="AI 近红外多光谱材质选机 | FDL SORT 产品详情" data-title-en="AI Hyperspectral Material Sorter | FDL SORT Product Detail">
 <header class="header"><div class="container nav"><a class="logo" href="/index.html"><span class="logo-mark">FD</span><span>FDL SORT</span></a><nav class="nav-links"><a class="i18n" href="/index.html" data-zh="首页" data-en="Home">首页</a><a class="i18n" href="/index.html#markets" data-zh="服务市场" data-en="Markets">服务市场</a><a class="i18n" href="/index.html#solutions" data-zh="分选方案" data-en="Solutions">分选方案</a><a class="i18n" href="/index.html#products" data-zh="设备中心" data-en="Products">设备中心</a><a class="i18n" href="/index.html#technology" data-zh="核心技术" data-en="Technology">核心技术</a><a class="i18n" href="/index.html#services" data-zh="售后服务" data-en="Service">售后服务</a><a class="i18n" href="/about/index.html" data-zh="关于我们" data-en="About Us">关于我们</a><a class="i18n" href="/index.html#contact" data-zh="联系我们" data-en="Contact">联系我们</a></nav><div class="nav-right"><div class="lang-switch" aria-label="Language switch"><button class="lang-choice active" type="button" data-set-lang="zh">中</button><button class="lang-choice" type="button" data-set-lang="en">EN</button></div><a class="btn i18n" href="/index.html#contact" data-zh="预约咨询购买" data-en="Request Quote">预约咨询购买</a></div><button class="hamburger" id="hamburger">☰</button></div><div id="mobilePanel" class="mobile-panel">

@@ -81,7 +81,70 @@ vercel --prod
    - 页面顶部的大标题显示为 **“核心优势 / Core Advantages”**，且无任何“手册内容整理”等残留小字。
    - 顶部导航支持多端点击（Home, Markets）并顺滑跳回首页各板块。
    - 底部 **“相关设备 (Related Products)”** 推荐大卡片点击后，能正常互相跳转到对应的详情页，不再跳回首页 root。
-4. **关于我们 (`about/index.html`)**：
-   - 确认大标题正常。
-   - 检查视频播放器是否能正常、零卡顿播放 Cloudflare R2 宣传片。
-   - 检查证书画廊是否显示 19 张精美的白底悬停放大 PNG 证书，底部官方名称展示正常。
+    4. **关于我们 (`about/index.html`)**：
+       - 确认大标题正常。
+       - 检查视频播放器是否能正常、零卡顿播放 Cloudflare R2 宣传片。
+       - 检查证书画廊是否显示 19 张精美的白底悬停放大 PNG 证书，底部官方名称展示正常。
+       - **检查 Meta Pixel & CAPI 联调状态**：打开浏览器开发者工具 (F12) 控制台或 Meta Pixel Helper，确认无 JS 报错且 PageView/Lead 事件已顺利发送。
+
+---
+
+## 方案 E：Meta 营销追踪联合环境变量配置指南
+
+Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端代码中。请确保在对应的托管或独立服务器控制台中，配置了以下三个环境变量。
+
+### 1. Vercel 生产部署环境变量配置（当前正式站使用）
+1. 登录 [Vercel 仪表盘](https://vercel.com/) 并进入您的项目 `fdl-sort-b2b-website`。
+2. 依次点击顶部的 **"Settings"** -> 左侧导航栏 **"Environment Variables"**。
+3. 依次添加以下三个变量（设置为 **Production**、**Preview** 两个环境生效）：
+   - 键名：`META_PIXEL_ID`
+     值：`1032808262617579`
+   - 键名：`META_CAPI_TOKEN`
+     值：`EAASZBCEBPClUBR05bUc7cwUYjnqgBwtLwo9p3R5ppU8dYvvZAuJptdxY2RxmdsZBNvp6w8RM5s5MPxqTTCCzv8lXlKrUCZCZAZCSYE4mqwl95aD9nTwtx2mBYYR9eeonZBjGiRdwGPkjZBZCGn0SZBE5V59jHxMJz3ZB8hdtQlz8nEtvNXPBqaSTL3ZAXygWdYcS6HAYBAZDZD`
+   - 键名：`META_TEST_EVENT_CODE`（可选，测试完毕后请从后台将其删除，以使生产上报完美对齐）
+     值：`TTEST89156`
+4. 点击 **"Save"**。
+5. **重要**：添加环境变量后，必须触发一次新的 Deployment 构建部署，新配置才会正式生效上屏。
+
+### 2. Cloudflare Worker 密钥配置
+如果未来您选择将中转代理 API 迁移部署至 Cloudflare Workers 中，请通过以下方式将 Token 存入 CF 的加密安全存储（Secrets）中：
+1. 本地打开终端，运行：
+   ```bash
+   # 为 Worker 注入加密 CAPI 令牌 (不公开可见)
+   wrangler secret put META_CAPI_TOKEN
+   # 终端将提示您输入密码，直接粘入您的 EAASZBCE... 令牌后回车
+   
+   # 注入 Pixel ID
+   wrangler secret put META_PIXEL_ID
+   # 输入 1032808262617579 后回车
+   ```
+2. 您也可以登录 [Cloudflare 控制台](https://dash.cloudflare.com/)，在 Workers & Pages 中选择您的服务，进入 **"Settings"** -> **"Variables"**，并在 **"Environment Variables"** 处以加密加密的形式添加对应的键值对。
+
+### 3. 独立 Node.js / Linux 物理服务器配置
+如果将站点与 Node.js 代理接口部署于独立的私有云服务器中：
+- **Linux/Ubuntu/Docker 启动时导出**：
+  在启动或守护进程脚本中进行导出注入：
+  ```bash
+  export META_PIXEL_ID="1032808262617579"
+  export META_CAPI_TOKEN="EAASZBCEBPClUBR05bUc..."
+  export META_TEST_EVENT_CODE="TTEST89156"
+  
+  # 启动您的 Node.js 主服务
+  node server.js
+  ```
+- **PM2 进程管理工具配置 (Ecosystem.config.js)**：
+  如果您使用 PM2，可将环境变量配置在 `env` 标签下：
+  ```json
+  {
+    "apps" : [{
+      "name"   : "fdl-sort-capi-proxy",
+      "script" : "./server.js",
+      "env": {
+        "META_PIXEL_ID": "1032808262617579",
+        "META_CAPI_TOKEN": "EAASZBCEBPClUBR05bUc...",
+        "META_TEST_EVENT_CODE": "TTEST89156"
+      }
+    }]
+  }
+  ```
+

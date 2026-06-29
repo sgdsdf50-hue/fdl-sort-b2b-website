@@ -99,3 +99,12 @@ document.addEventListener('submit', function(e) {
     });
   }
 });
+
+// 自动收起二级页面移动端菜单
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('#mobilePanel a');
+  if (link) {
+    document.querySelector('#mobilePanel')?.classList.remove('open');
+  }
+});
+

@@ -1128,20 +1128,18 @@
             
             // 如果是本页锚点（以 # 开头）
             if (targetId.startsWith('#')) {
-              e.preventDefault(); // 阻止硬跳转
-              const targetElement = document.querySelector(targetId);
-              if (targetElement) {
-                // 先收起菜单面板
-                mobilePanel.classList.remove('active');
-                menuToggle.textContent = '☰';
-                
-                // 延时 100ms 避开布局抖动，执行完美平滑滚动
-                setTimeout(() => {
-                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
-              }
+              e.preventDefault(); // 拦截硬跳转冲突
+              
+              // 先优雅、无冲突地收起折叠面板
+              mobilePanel.classList.remove('active');
+              menuToggle.textContent = '☰';
+              
+              // 延时 100ms 避开布局抖动，通过原生修改 hash 触发 CSS 平滑滚动，100% 兼容 iOS Safari/Chrome
+              setTimeout(() => {
+                window.location.hash = targetId;
+              }, 100);
             } else {
-              // 跨页链接（如 /about/index.html）直接放行
+              // 跨页链接直接放行
               mobilePanel.classList.remove('active');
               menuToggle.textContent = '☰';
             }

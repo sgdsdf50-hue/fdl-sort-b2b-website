@@ -1112,7 +1112,7 @@
         });
       }
 
-      // Hamburger Menu and Panel Toggle
+      // Mobile Menu Toggle and Reliable Scroll Logic
       const menuToggle = document.getElementById('menuToggle');
       const mobilePanel = document.getElementById('mobilePanel');
       if (menuToggle && mobilePanel) {
@@ -1120,11 +1120,31 @@
           mobilePanel.classList.toggle('active');
           menuToggle.textContent = mobilePanel.classList.contains('active') ? '✕' : '☰';
         });
+        
         const mobileLinks = mobilePanel.querySelectorAll('a');
         mobileLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            mobilePanel.classList.remove('active');
-            menuToggle.textContent = '☰';
+          link.addEventListener('click', (e) => {
+            const targetId = link.getAttribute('href');
+            
+            // 如果是本页锚点（以 # 开头）
+            if (targetId.startsWith('#')) {
+              e.preventDefault(); // 阻止硬跳转
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                // 先收起菜单面板
+                mobilePanel.classList.remove('active');
+                menuToggle.textContent = '☰';
+                
+                // 延时 100ms 避开布局抖动，执行完美平滑滚动
+                setTimeout(() => {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+              }
+            } else {
+              // 跨页链接（如 /about/index.html）直接放行
+              mobilePanel.classList.remove('active');
+              menuToggle.textContent = '☰';
+            }
           });
         });
       }

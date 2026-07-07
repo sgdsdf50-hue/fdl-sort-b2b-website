@@ -1205,12 +1205,37 @@
           menuToggle.textContent = mobilePanel.classList.contains('active') ? '✕' : '☰';
         });
         
-        // 2. 仅在点击链接后顺畅收起手机端面板（放行所有默认跳转，让浏览器原生处理 smooth scroll 和跨页）
+        // 2. 手机端点击托管：拦截硬跳，优雅收起菜单并执行平滑滚动，完美避开浏览器渲染树瞬间消失的冲突
         const mobileLinks = mobilePanel.querySelectorAll('a');
         mobileLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            mobilePanel.classList.remove('active');
-            menuToggle.textContent = '☰';
+          link.addEventListener('click', (e) => {
+            const targetHref = link.getAttribute('href');
+            
+            // 如果是本页锚点链接（以 # 开头）
+            if (targetHref && targetHref.startsWith('#')) {
+              e.preventDefault(); // 拦截默认瞬间跳转
+              
+              // 立即收起菜单面板并重置汉堡包按钮图标为 ☰
+              mobilePanel.classList.remove('active');
+              menuToggle.textContent = '☰';
+              
+              // 延迟 100 毫秒（等待菜单收起重绘稳定，避免视口抖动），平滑滚动到对应的首页板块
+              const targetElement = document.querySelector(targetHref);
+              if (targetElement) {
+                setTimeout(() => {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  
+                  // 同步静默更新浏览器地址栏的 Hash
+                  try {
+                    history.pushState(null, null, targetHref);
+                  } catch (err) {}
+                }, 100);
+              }
+            } else {
+              // 跨页物理超链接（例如：About Us /about/index.html）直接放行
+              mobilePanel.classList.remove('active');
+              menuToggle.textContent = '☰';
+            }
           });
         });
       }

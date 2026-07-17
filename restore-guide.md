@@ -98,11 +98,11 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
 2. 依次点击顶部的 **"Settings"** -> 左侧导航栏 **"Environment Variables"**。
 3. 依次添加以下三个变量（设置为 **Production**、**Preview** 两个环境生效）：
    - 键名：`META_PIXEL_ID`
-     值：`1027355633035262`
+     值：`2799622183736712`
    - 键名：`META_CAPI_TOKEN`
-     值：`EAASZBCEBPClUBR0Xr4kKyw5Fe38cllprRhiAnUV4cfPeC8cYVgtNUnSI8zm0NkwVbZAMxqPuYjmDVPMo3T1UcIZCHD1Cr2TW6nYFfWFWalhlclBpV9r08iTmc0U9JYpBay3343aSscecYRlJToaicfs5BXhEYE9tUWG0cClxwhWzYqLhfEjsm2zGZCSU0fToNwZDZD`
+     值：`EAAV3eDlMsBcBR7rzh8bxlDSBdXWeZAz7Dk2fZAv7YW9DuATTPUhJjwBwJsSeZBx4YcXGQdY1MCM9aVeOT54dIb99WvX2IDwURYjxLUM5NPd9ZC8ZA3TF4TZAZAtmfoFVqd83j9NFmjkZA0tFNBXTZBxHNlCIK1RDTD4Pg7NR8qwS4Tvn0CPqKMq33tvlw6DCkqin3LwZDZD`
    - 键名：`META_TEST_EVENT_CODE`（可选，测试完毕后请从后台将其删除，以使生产上报完美对齐）
-     值：`TTEST89156`
+     值：`TEST57170`
 4. 点击 **"Save"**。
 5. **重要**：添加环境变量后，必须触发一次新的 Deployment 构建部署，新配置才会正式生效上屏。
 
@@ -116,7 +116,7 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
    
    # 注入 Pixel ID
    wrangler secret put META_PIXEL_ID
-   # 输入 1027355633035262 后回车
+   # 输入 2799622183736712 后回车
    ```
 2. 您也可以登录 [Cloudflare 控制台](https://dash.cloudflare.com/)，在 Workers & Pages 中选择您的服务，进入 **"Settings"** -> **"Variables"**，并在 **"Environment Variables"** 处以加密加密的形式添加对应的键值对。
 
@@ -125,9 +125,9 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
 - **Linux/Ubuntu/Docker 启动时导出**：
   在启动或守护进程脚本中进行导出注入：
   ```bash
-  export META_PIXEL_ID="1027355633035262"
-  export META_CAPI_TOKEN="EAASZBCEBPClUBR0Xr4k..."
-  export META_TEST_EVENT_CODE="TTEST89156"
+  export META_PIXEL_ID="2799622183736712"
+  export META_CAPI_TOKEN="EAAV3eDlMsBcBR7rzh8b..."
+  export META_TEST_EVENT_CODE="TEST57170"
   
   # 启动您的 Node.js 主服务
   node server.js
@@ -140,9 +140,9 @@ Conversions API (CAPI) 的密钥安全级别极高，决不能暴露在客户端
       "name"   : "fdl-sort-capi-proxy",
       "script" : "./server.js",
       "env": {
-        "META_PIXEL_ID": "1027355633035262",
-        "META_CAPI_TOKEN": "EAASZBCEBPClUBR0Xr4k...",
-        "META_TEST_EVENT_CODE": "TTEST89156"
+        "META_PIXEL_ID": "2799622183736712",
+        "META_CAPI_TOKEN": "EAAV3eDlMsBcBR7rzh8b...",
+        "META_TEST_EVENT_CODE": "TEST57170"
       }
     }]
   }
